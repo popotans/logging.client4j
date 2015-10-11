@@ -23,13 +23,13 @@ import logging.client.TLogPackage;
 public class App 
 {
 	
-	static ILog logger=LogManager.GetLogger(App.class);
+	static ILog logger=LogManager.getLogger(App.class);
 	
 	
 	
     public static void main( String[] args ) 
     {
-    	Settings.Init(4004, "http://server.logging.com",10,5000);
+    	Settings.startup(4004, "http://server.logging.com",10,5000);
     	
         System.out.println( "ThriftTest begin" );
         ThriftTest();
@@ -39,10 +39,10 @@ public class App
     public  static void  ThriftTest() {
     
     	for(int i=0;i<10;i++){
-    	logger.Debug("java test debug");
-    	logger.Info("java test info");
-    	logger.Warm("java test warm");
-    	logger.Error("java test error");
+    	logger.debug("java test debug");
+    	logger.info("java test info");
+    	logger.warm("java test warm");
+    	logger.error("java test error");
     	}
     	
     	try {
@@ -53,10 +53,10 @@ public class App
 		}
     	
     	for(int i=0;i<10;i++){
-        	logger.Debug("java test debug");
-        	logger.Info("java test info");
-        	logger.Warm("java test warm");
-        	logger.Error("java test error");
+    		logger.debug("java test debug");
+        	logger.info("java test info");
+        	logger.warm("java test warm");
+        	logger.error("java test error");
         	}
     	
     	try {
@@ -67,10 +67,10 @@ public class App
 		}
     	
     	for(int i=0;i<10;i++){
-        	logger.Debug("java test debug");
-        	logger.Info("java test info");
-        	logger.Warm("java test warm");
-        	logger.Error("java test error");
+    		logger.debug("java test debug");
+        	logger.info("java test info");
+        	logger.warm("java test warm");
+        	logger.error("java test error");
         	}
     	
     	try {
@@ -81,10 +81,10 @@ public class App
 		}
     	
     	for(int i=0;i<10;i++){
-        	logger.Debug("java test debug");
-        	logger.Info("java test info");
-        	logger.Warm("java test warm");
-        	logger.Error("java test error");
+    		logger.debug("java test debug");
+        	logger.info("java test info");
+        	logger.warm("java test warm");
+        	logger.error("java test error");
         	}
     	
     	try {
@@ -94,10 +94,10 @@ public class App
 			e.printStackTrace();
 		}
     	
-    	logger.Info("java test info  over");
-    	logger.Info("java test info  over");
-    	logger.Info("java test info  over");
-    	logger.Info("java test info  over");
+    	logger.debug("java test debug");
+    	logger.info("java test info");
+    	logger.warm("java test warm");
+    	logger.error( new Exception("ex test"));
     	
     	try {
 			Thread.sleep(200);
@@ -106,6 +106,6 @@ public class App
 			e.printStackTrace();
 		}
     	
-    	logger.Debug("java test Debug  over");
+    	logger.debug("java test Debug  over");
     }
 }

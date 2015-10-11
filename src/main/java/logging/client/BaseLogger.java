@@ -1,166 +1,191 @@
 package logging.client;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Map;
 
 public abstract class BaseLogger implements ILog {
 
-	  private String Source ;
+	private String Source;
 
-	  static TimerActionBlock<ILogEntity>  block;
-	  
-	  static LogSenderBase logSender;
-	  
-      public BaseLogger(String source )
-      {
-          this.Source = source;
-          if(logSender==null)
-          {
-        	  logSender=new THttpLogSender();
-          }
-          if(block==null)
-          {       	  
-        	  block= new TimerActionBlock<ILogEntity>(logSender,Settings.LoggingQueueLength,Settings.LoggingBufferSize,Settings.LoggingBlockElapsed);
-          }
-      }
-	
-	public void Debug(String message) {
+	static TimerActionBlock<ILogEntity> block;
+
+	static LogSenderBase logSender;
+
+	public BaseLogger(String source) {
+		this.Source = source;
+		if (logSender == null) {
+			logSender = new THttpLogSender();
+		}
+		if (block == null) {
+			block = new TimerActionBlock<ILogEntity>(logSender, Settings.LoggingQueueLength, Settings.LoggingBufferSize,
+					Settings.LoggingBlockElapsed);
+		}
+	}
+
+	public void debug(String message) {
 		// TODO Auto-generated method stub
-		   Debug("", message);
+		debug("", message);
 	}
 
-	public void Debug(String title, String message) {
+	public void debug(String title, String message) {
 		// TODO Auto-generated method stub
-		 Debug(title, message,null);
+		debug(title, message, null);
 	}
 
-	public void Debug(String title, String message, Map<String, String> tags) {
+	public void debug(String title, String message, Map<String, String> tags) {
 		// TODO Auto-generated method stub
-		 Log(title, message,null,1);
+		Log(title, message, null, 1);
 	}
 
-	public void DebugWithTags(String title, String message, String[] tags) {
+	public void debugWithTags(String title, String message, String[] tags) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void Info(String message) {
+	public void info(String message) {
 		// TODO Auto-generated method stub
-		Info("", message);
+		info("", message);
 	}
 
-	public void Info(String title, String message) {
+	public void info(String title, String message) {
 		// TODO Auto-generated method stub
-		Info(title, message,null);
+		info(title, message, null);
 	}
 
-	public void Info(String title, String message, Map<String, String> tags) {
+	public void info(String title, String message, Map<String, String> tags) {
 		// TODO Auto-generated method stub
-		Log(title, message,null,2);
+		Log(title, message, null, 2);
 	}
 
-	public void InfoWithTags(String title, String message, String[] tags) {
+	public void infoWithTags(String title, String message, String[] tags) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void Warm(String message) {
+	public void warm(String message) {
 		// TODO Auto-generated method stub
-		Warm("", message);
+		warm("", message);
 	}
 
-	public void Warm(String title, String message) {
+	public void warm(String title, String message) {
 		// TODO Auto-generated method stub
-		Warm(title, message,null);
+		warm(title, message, null);
 	}
 
-	public void Warm(String title, String message, Map<String, String> tags) {
+	public void warm(String title, String message, Map<String, String> tags) {
 		// TODO Auto-generated method stub
-		Log(title, message,null,3);
+		Log(title, message, null, 3);
 	}
 
-	public void WarmWithTags(String title, String message, String[] tags) {
+	public void warmWithTags(String title, String message, String[] tags) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void Error(String message) {
+	public void error(String message) {
 		// TODO Auto-generated method stub
-		Error("", message);
+		error("", message);
 	}
 
-	public void Error(String title, String message) {
+	public void error(String title, String message) {
 		// TODO Auto-generated method stub
-		Error(title, message,null);
+		error(title, message, null);
 	}
 
-	public void Error(String title, String message, Map<String, String> tags) {
+	public void error(String title, String message, Map<String, String> tags) {
 		// TODO Auto-generated method stub
-		Log(title, message,tags,4);
+		Log(title, message, tags, 4);
 	}
 
-	public void ErrorWithTags(String title, String message, String[] tags) {
+	public void errorWithTags(String title, String message, String[] tags) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void Error(Exception ex) {
-		// TODO Auto-generated method stub
-		
+	public void error(Exception ex) {
+		error(ex.toString(), ex);
+
 	}
 
-	public void Error(String title, Exception ex) {
-		// TODO Auto-generated method stub
-		
+	public void error(String title, Exception ex) {
+		error(title, ex, null);
+
 	}
 
-	public void Error(Exception ex, Map<String, String> tags) {
-		// TODO Auto-generated method stub
-		
+	public void error(Exception ex, Map<String, String> tags) {
+		error(ex.toString(), ex, tags);
+
 	}
 
-	public void Error(String title, Exception ex, Map<String, String> tags) {
-		// TODO Auto-generated method stub
-		
+	public void error(String title, Exception ex, Map<String, String> tags) {
+
+		PrintWriter pw = null;
+		StringWriter sw = null;
+		try {
+			sw = new StringWriter();
+			pw = new PrintWriter(sw);
+			ex.printStackTrace(pw); // 将出错的栈信息输出到printWriter中
+			pw.flush();
+			sw.flush();
+		} finally {
+			if (sw != null) {
+				try {
+					sw.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (pw != null) {
+				pw.close();
+			}
+		}
+
+		error(title, sw.toString(), tags);
+
 	}
 
-	public void Metric(String name, double value, Map<String, String> tags) {
-		
-		 if (!Settings.LoggingEnabled) { return; }
-		 
-			 MetricEntity Metric = new MetricEntity();
-			 Metric.Type=1;
-	        Metric.Name = name;
-	        Metric.Value = value;
-	        Metric.Tags = tags;
-	        Metric.Time = System.currentTimeMillis()*10000;
-	        this.block.Enqueue(Metric);
+	public void metric(String name, double value, Map<String, String> tags) {
+
+		if (!Settings.LoggingEnabled) {
+			return;
+		}
+
+		MetricEntity Metric = new MetricEntity();
+		Metric.Type = 2;
+		Metric.Name = name;
+		Metric.Value = value;
+		Metric.Tags = tags;
+		Metric.Time = System.currentTimeMillis() * 10000;
+		this.block.Enqueue(Metric);
 	}
 
-	public String GetLogs(long start, long end, int appId, int[] level, String title, String msg, String source,
+	public String getLogs(long start, long end, int appId, int[] level, String title, String msg, String source,
 			String ip, Map<String, String> tags, int limit) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	protected  void Log(String title, String message, Map<String, String> tags, int level)
-	{
-		   if (!Settings.LoggingEnabled) { return; }
-		   LogEntity log = this.CreateLog(this.Source, title, message, tags, level);
-		   this.block.Enqueue(log);
-		  
+	protected void Log(String title, String message, Map<String, String> tags, int level) {
+		if (!Settings.LoggingEnabled) {
+			return;
+		}
+		LogEntity log = this.CreateLog(this.Source, title, message, tags, level);
+		this.block.Enqueue(log);
+
 	}
-	
-	   protected LogEntity CreateLog(String source, String title, String message, Map<String, String> tags, int level)
-       { 
-           LogEntity log = new LogEntity();
-           log.Type=1;
-           log.Level = level;
-           log.Message = message;
-           log.Tags = tags;
-           log.Time = System.currentTimeMillis()*10000;
-           log.Title = title;
-           log.Source = source;
-           log.Thread = (int) Thread.currentThread().getId();
-           return log;
-       }
+
+	protected LogEntity CreateLog(String source, String title, String message, Map<String, String> tags, int level) {
+		LogEntity log = new LogEntity();
+		log.Type = 1;
+		log.Level = level;
+		log.Message = message;
+		log.Tags = tags;
+		log.Time = System.currentTimeMillis() * 10000;
+		log.Title = title;
+		log.Source = source;
+		log.Thread = (int) Thread.currentThread().getId();
+		return log;
+	}
 }

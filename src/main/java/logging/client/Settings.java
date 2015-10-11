@@ -57,7 +57,7 @@ public class Settings {
     /// </summary>
     private  static int DefaultLoggingBlockElapsed = 5000;
     
-    public static void Init(Boolean enabled,int appId,String serverHost,int bufferSize,int blockElapsed){   	
+    public static void startup(Boolean enabled,int appId,String serverHost,int bufferSize,int blockElapsed){   	
     	LoggingEnabled=enabled;
     	AppId=appId;
     	LoggingServerHost=serverHost;
@@ -66,13 +66,13 @@ public class Settings {
     }
     
     
-    public static void Init(int appId,String serverHost,int bufferSize,int blockElapsed){   	
-    	Init(true,appId,serverHost,bufferSize,blockElapsed);
+    public static void startup(int appId,String serverHost,int bufferSize,int blockElapsed){   	
+    	startup(true,appId,serverHost,bufferSize,blockElapsed);
     }
     
 
     
-    public static void Init(int appId,String serverHost){   	
+    public static void startup(int appId,String serverHost){   	
     	LoggingEnabled=true;
     	AppId=appId;
     	LoggingServerHost=serverHost;
@@ -86,11 +86,11 @@ public class Settings {
 		}
 	}
     
-    public static void Enabled(){   	
+    public static void enabled(){   	
     	LoggingEnabled=true;
     }
     
-    public static void Disabled(){   	
+    public static void disabled(){   	
     	LoggingEnabled=false;
     }
 }

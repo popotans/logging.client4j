@@ -15,15 +15,15 @@ public class LogManager {
      /// </summary>
      /// <param name="type">The type.</param>
      /// <returns>ILog instance</returns>
-     public static ILog GetLogger(Class type)
+     public static ILog getLogger(Class type)
      {        	 
          if (type == null)
          {
-             return GetLogger("NoName");
+             return getLogger("NoName");
          }
          else
          {
-             return GetLogger(type.getName());
+             return getLogger(type.getName());
          }
      }
 
@@ -32,7 +32,7 @@ public class LogManager {
      /// </summary>
      /// <param name="name">The name.</param>
      /// <returns>ILog instance</returns>
-     public static ILog GetLogger(String name)
+     public static ILog getLogger(String name)
      {
          ILog log = _logs.get(name);
          if (log==null)

@@ -5,25 +5,11 @@ import java.util.Map;
 public interface ILog {
 
 
-    void Debug(String message);
+    void debug(String message);
 
-    void Debug(String title, String message);
+    void debug(String title, String message);
 
-    void Debug(String title, String message, Map<String, String> tags);
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="title"></param>
-    /// <param name="message"></param>
-    /// <param name="tags">key=val格式的字符串数组</param>
-    void DebugWithTags(String title, String message, String[] tags);
-
-    void Info(String message);
-
-    void Info(String title, String message);
-
-    void Info(String title, String message, Map<String, String> tags);
+    void debug(String title, String message, Map<String, String> tags);
 
     /// <summary>
     /// 
@@ -31,26 +17,13 @@ public interface ILog {
     /// <param name="title"></param>
     /// <param name="message"></param>
     /// <param name="tags">key=val格式的字符串数组</param>
-    void InfoWithTags(String title, String message, String[] tags);
+    void debugWithTags(String title, String message, String[] tags);
 
-    void Warm(String message);
+    void info(String message);
 
-    void Warm(String title, String message);
+    void info(String title, String message);
 
-    void Warm(String title, String message, Map<String, String> tags);
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="title"></param>
-    /// <param name="message"></param>
-    /// <param name="tags">key=val格式的字符串数组</param>
-    void WarmWithTags(String title, String message, String[] tags);
-
-    void Error(String message);
-
-    void Error(String title, String message);
-
-    void Error(String title, String message, Map<String, String> tags);
+    void info(String title, String message, Map<String, String> tags);
 
     /// <summary>
     /// 
@@ -58,17 +31,44 @@ public interface ILog {
     /// <param name="title"></param>
     /// <param name="message"></param>
     /// <param name="tags">key=val格式的字符串数组</param>
-    void ErrorWithTags(String title, String message, String[] tags);
+    void infoWithTags(String title, String message, String[] tags);
 
-    void Error(Exception ex);
+    void warm(String message);
 
-    void Error(String title, Exception ex);
+    void warm(String title, String message);
 
-    void Error(Exception ex, Map<String, String> tags);
+    void warm(String title, String message, Map<String, String> tags);
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    /// <param name="tags">key=val格式的字符串数组</param>
+    void warmWithTags(String title, String message, String[] tags);
 
-    void Error(String title, Exception ex, Map<String, String> tags);
+    void error(String message);
 
-    void Metric(String name, double value, Map<String, String> tags );
+    void error(String title, String message);
+
+    void error(String title, String message, Map<String, String> tags);
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="title"></param>
+    /// <param name="message"></param>
+    /// <param name="tags">key=val格式的字符串数组</param>
+    void errorWithTags(String title, String message, String[] tags);
+
+    void error(Exception ex);
+
+    void error(String title, Exception ex);
+
+    void error(Exception ex, Map<String, String> tags);
+
+    void error(String title, Exception ex, Map<String, String> tags);
+
+    void metric(String name, double value, Map<String, String> tags );
 
     /// <summary>
     /// 获取日志。
@@ -85,5 +85,5 @@ public interface ILog {
     /// <param name="tags"></param>
     /// <param name="limit"></param>
     /// <returns></returns>
-    String GetLogs(long start, long end, int appId, int[] level , String title , String msg, String source, String ip , Map<String, String> tags , int limit );
+    String getLogs(long start, long end, int appId, int[] level , String title , String msg, String source, String ip , Map<String, String> tags , int limit );
 }
