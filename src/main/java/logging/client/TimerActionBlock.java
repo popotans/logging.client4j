@@ -10,7 +10,7 @@ import java.util.concurrent.Callable;
 
 public class TimerActionBlock<T> implements ITimerActionBlock<T> {
 
-	LinkedBlockingQueue<T> queue = new LinkedBlockingQueue<T>(1024);
+	private LinkedBlockingQueue<T> queue;
 
 	/// <summary>
 	/// 阻塞队列的最大长度
@@ -34,11 +34,14 @@ public class TimerActionBlock<T> implements ITimerActionBlock<T> {
 	private DequeueAction<T> Action;
 
 	public TimerActionBlock(DequeueAction<T> action, int queueMaxLength, int bufferSize, int blockElapsed) {
-		this.QueueMaxLength = queueMaxLength;
+	
 		this.BufferSize = bufferSize;
 		this.LastActionTime = new Date();
 		this.BlockElapsed = blockElapsed;
 		this.Action = action;
+		this.QueueMaxLength = queueMaxLength;
+		this.queue = new LinkedBlockingQueue<T>(queueMaxLength);
+		
 	}
 
 	public void Enqueue(T item) {
