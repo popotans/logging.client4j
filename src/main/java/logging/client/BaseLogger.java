@@ -152,13 +152,15 @@ public abstract class BaseLogger implements ILog {
 			return;
 		}
 
+		
+		
 		MetricEntity Metric = new MetricEntity();
 		Metric.Type = 2;
 		Metric.Name = name;
 		Metric.Value = value;
 		Metric.Tags = tags;
 		Metric.Time = System.currentTimeMillis() * 10000;
-		this.block.Enqueue(Metric);
+		block.Enqueue(Metric);
 	}
 
 	public String getLogs(long start, long end, int appId, int[] level, String title, String msg, String source,
@@ -171,8 +173,16 @@ public abstract class BaseLogger implements ILog {
 		if (!Settings.LoggingEnabled) {
 			return;
 		}
+		
+		 LogOnOff onOff = LogOnOffManager.GetLogOnOff();
+
+         if (level == 1 && onOff.Debug != 1) { return; }
+         if (level == 2 && onOff.Info != 1) { return; }
+         if (level == 3 && onOff.Warm != 1) { return; }
+         if (level == 4 && onOff.Error != 1) { return; }
+		
 		LogEntity log = this.CreateLog(this.Source, title, message, tags, level);
-		this.block.Enqueue(log);
+		block.Enqueue(log);
 
 	}
 

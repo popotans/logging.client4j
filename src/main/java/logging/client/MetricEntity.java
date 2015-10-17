@@ -1,6 +1,5 @@
 package logging.client;
 
-import java.util.Dictionary;
 import java.util.Map;
 
 public class MetricEntity extends ILogEntity {

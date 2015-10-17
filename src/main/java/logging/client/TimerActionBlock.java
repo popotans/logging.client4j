@@ -40,7 +40,7 @@ public class TimerActionBlock<T> implements ITimerActionBlock<T> {
 		this.BlockElapsed = blockElapsed;
 		this.Action = action;
 		this.QueueMaxLength = queueMaxLength;
-		this.queue = new LinkedBlockingQueue<T>(queueMaxLength);
+		this.queue = new LinkedBlockingQueue<T>(this.QueueMaxLength);
 		
 	}
 
