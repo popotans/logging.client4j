@@ -69,6 +69,7 @@ public abstract class LogSenderBase implements DequeueAction<ILogEntity> {
 	 		// TODO Auto-generated method stub
 	 		try {
 	 			Send(items);
+	 			LogOnOffManager.RefreshLogOnOff();
 	 		} catch (Exception e) {
 	 			// TODO Auto-generated catch block
 	 			e.printStackTrace();
