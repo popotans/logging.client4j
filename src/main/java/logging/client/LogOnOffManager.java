@@ -13,7 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
- final class LogOnOffManager {
+final class LogOnOffManager {
 
 	private LogOnOffManager() {
 	}
@@ -57,13 +57,7 @@ import org.apache.http.impl.client.HttpClients;
 			response = httpclient.execute(httpgets);
 			HttpEntity entity = response.getEntity();
 			if (entity != null) {
-				InputStream instreams = null;
-				try {
-					instreams = entity.getContent();
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				 InputStream instreams = entity.getContent();
 				resp = convertStreamToString(instreams);
 				response.close();
 				System.out.println(resp);
@@ -73,6 +67,7 @@ import org.apache.http.impl.client.HttpClients;
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
+			LastUpdateTime = new Date();
 		}
 
 		if (!resp.isEmpty()) {

@@ -40,22 +40,22 @@ public class Settings {
 	/// <summary>
 	/// 应用号
 	/// </summary>
-	public static int AppId;
+	public  static int AppId;
 
 	/// <summary>
 	/// 默认日志队列最大长度：100000
 	/// </summary>
-	private static int DefaultLoggingQueueLength = 100000;
+	private final static int DefaultLoggingQueueLength = 100000;
 
 	/// <summary>
 	/// 默认日志打包大小：300
 	/// </summary>
-	private static int DefaultLoggingBufferSize = 300;
+	private final static int DefaultLoggingBufferSize = 300;
 
 	/// <summary>
 	/// 默认发送阻塞时间。单位:毫秒。5000,即5秒
 	/// </summary>
-	private static int DefaultLoggingBlockElapsed = 5000;
+	private final static int DefaultLoggingBlockElapsed = 5000;
 
 	public static void startup(Boolean enabled, int appId, String serverHost, int queueLength, int bufferSize,
 			int blockElapsed) {
