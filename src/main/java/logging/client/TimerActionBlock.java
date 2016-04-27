@@ -46,12 +46,9 @@ public class TimerActionBlock<T> implements ITimerActionBlock<T> {
 
 	public void Enqueue(T item) {
 		int queueLen = this.queue.size();
-		if (queueLen > 0 && (queueLen >= BufferSize
-				|| (new Date().getTime() - this.LastActionTime.getTime()) >= this.BlockElapsed)) {
-
+		if (queueLen > 0 && (queueLen >= BufferSize|| (new Date().getTime() - this.LastActionTime.getTime()) >= this.BlockElapsed)) {
 			List<T> buffer = new ArrayList<T>();
 			for (int i = 0; i < queueLen; i++) {
-
 				try {
 					buffer.add(this.queue.take());
 					buffer.add(item);

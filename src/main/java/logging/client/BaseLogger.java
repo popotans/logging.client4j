@@ -152,14 +152,12 @@ public abstract class BaseLogger implements ILog {
 			return;
 		}
 
-		
-		
 		MetricEntity Metric = new MetricEntity();
 		Metric.Type = 2;
 		Metric.Name = name;
 		Metric.Value = value;
 		Metric.Tags = tags;
-		Metric.Time = System.currentTimeMillis() * 10000;
+		Metric.Time = System.currentTimeMillis()/1000;
 		block.Enqueue(Metric);
 	}
 

@@ -5,7 +5,7 @@
 
   <groupId>logging.client</groupId>
   <artifactId>logging.client</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <name>logging.client</name>
@@ -78,12 +78,7 @@
 
   <dependencies>
 	 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+
     
 
    
